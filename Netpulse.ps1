@@ -1,13 +1,10 @@
 <#
-NetPulse - Interactive Ping / Tracert Tool
-Author: Leo
-Description:
-- Interactive IP input
-- Choose ping or tracert (default: ping)
-- Ping count: 10 / 30 / 50 / 100 / infinite (-t)
-- Infinite mode: press Q to stop and show total count
-- Optional CSV export (non-infinite mode)
-- Real-time min / max / avg / TTL display
+NetPulse v1.1
+Upgrades:
+- Packet Loss %
+- Colorized latency display
+- Full summary block after completion
+- Infinite mode shows "Press Enter to exit"
 #>
 
 param()
@@ -15,13 +12,12 @@ param()
 function Show-Header {
     Clear-Host
     Write-Host "===============================" -ForegroundColor Cyan
-    Write-Host "        NetPulse v1.0" -ForegroundColor Green
+    Write-Host "        NetPulse v1.1" -ForegroundColor Green
     Write-Host "===============================" -ForegroundColor Cyan
 }
 
 function Get-Target {
-    $target = Read-Host "Enter IP or domain"
-    return $target
+    Read-Host "Enter IP or domain"
 }
 
 function Get-Mode {
@@ -56,6 +52,35 @@ function Ask-ExportCSV {
     return $false
 }
 
+function Write-ColoredLatency($time, $text) {
+    if ($time -lt 20) {
+        Write-Host $text -ForegroundColor Green
+    }
+    elseif ($time -lt 80) {
+        Write-Host $text -ForegroundColor Yellow
+    }
+    else {
+        Write-Host $text -ForegroundColor Red
+    }
+}
+
+function Show-Summary($target, $sent, $received, $min, $max, $avg) {
+    $lost = $sent - $received
+    if ($sent -gt 0) {
+        $lossPercent = [math]::Round(($lost / $sent) * 100,2)
+    } else {
+        $lossPercent = 0
+    }
+
+    Write-Host "`n===== NetPulse Summary =====" -ForegroundColor Cyan
+    Write-Host "Target: $target"
+    Write-Host "Packets: Sent = $sent, Received = $received, Lost = $lost ($lossPercent`%)"
+    Write-Host "Min = ${min}ms"
+    Write-Host "Max = ${max}ms"
+    Write-Host "Avg = ${avg}ms"
+    Write-Host "=============================" -ForegroundColor Cyan
+}
+
 function Start-Tracert($target) {
     Write-Host "Starting tracert..." -ForegroundColor Cyan
     tracert $target
@@ -67,37 +92,50 @@ function Start-Ping($target, $count, $exportCSV) {
     $min = [int]::MaxValue
     $max = 0
     $sum = 0
-    $success = 0
+    $sent = 0
+    $received = 0
 
     if ($count -eq -1) {
         Write-Host "Infinite ping. Press Q to stop." -ForegroundColor Yellow
-        $i = 0
         while ($true) {
             if ([console]::KeyAvailable) {
                 $key = [console]::ReadKey($true)
                 if ($key.Key -eq 'Q') { break }
             }
 
+            $sent++
             $reply = Test-Connection -ComputerName $target -Count 1 -ErrorAction SilentlyContinue
-            $i++
 
             if ($reply) {
                 $time = $reply.ResponseTime
                 $ttl = $reply.TimeToLive
-                $success++
+                $received++
 
                 if ($time -lt $min) { $min = $time }
                 if ($time -gt $max) { $max = $time }
                 $sum += $time
+                $avg = [math]::Round($sum / $received,2)
 
-                $avg = [math]::Round($sum / $success,2)
-
-                Write-Host "[$i] Time=${time}ms TTL=$ttl | Min=$min Max=$max Avg=$avg"
+                $text = "[$sent] Time=${time}ms TTL=$ttl"
+                Write-ColoredLatency $time $text
             }
-            Start-Sleep -Milliseconds 1000
+            else {
+                Write-Host "[$sent] Request timed out." -ForegroundColor Red
+            }
+
+            Start-Sleep -Seconds 1
         }
 
-        Write-Host "Stopped. Total sent: $i"
+        if ($received -gt 0) {
+            $avg = [math]::Round($sum / $received,2)
+        } else {
+            $min = 0
+            $avg = 0
+        }
+
+        Show-Summary $target $sent $received $min $max $avg
+        Write-Host "`nPress Enter to exit..." -ForegroundColor DarkGray
+        Read-Host | Out-Null
         return
     }
 
@@ -106,38 +144,53 @@ function Start-Ping($target, $count, $exportCSV) {
     }
 
     for ($i=1; $i -le $count; $i++) {
+        $sent++
         $reply = Test-Connection -ComputerName $target -Count 1 -ErrorAction SilentlyContinue
 
         if ($reply) {
             $time = $reply.ResponseTime
             $ttl = $reply.TimeToLive
-            $success++
+            $received++
 
             if ($time -lt $min) { $min = $time }
             if ($time -gt $max) { $max = $time }
             $sum += $time
-            $avg = [math]::Round($sum / $success,2)
+            $avg = [math]::Round($sum / $received,2)
 
-            Write-Host "[$i/$count] Time=${time}ms TTL=$ttl | Min=$min Max=$max Avg=$avg"
+            $text = "[$i/$count] Time=${time}ms TTL=$ttl"
+            Write-ColoredLatency $time $text
 
             if ($exportCSV) {
                 $results += [pscustomobject]@{
                     Index = $i
                     Time_ms = $time
                     TTL = $ttl
-                    Min = $min
-                    Max = $max
-                    Avg = $avg
                 }
             }
         }
-        Start-Sleep -Milliseconds 1000
+        else {
+            Write-Host "[$i/$count] Request timed out." -ForegroundColor Red
+        }
+
+        Start-Sleep -Seconds 1
     }
+
+    if ($received -gt 0) {
+        $avg = [math]::Round($sum / $received,2)
+    } else {
+        $min = 0
+        $avg = 0
+    }
+
+    Show-Summary $target $sent $received $min $max $avg
 
     if ($exportCSV) {
         $results | Export-Csv $csvPath -NoTypeInformation -Encoding UTF8
         Write-Host "CSV exported to $csvPath" -ForegroundColor Green
     }
+
+    Write-Host "`nPress Enter to exit..." -ForegroundColor DarkGray
+    Read-Host | Out-Null
 }
 
 Show-Header
@@ -146,6 +199,8 @@ $mode = Get-Mode
 
 if ($mode -eq "tracert") {
     Start-Tracert $target
+    Write-Host "`nPress Enter to exit..." -ForegroundColor DarkGray
+    Read-Host | Out-Null
 }
 else {
     $count = Get-PingCount
