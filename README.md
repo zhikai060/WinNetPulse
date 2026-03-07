@@ -28,8 +28,6 @@ NetPulse is a lightweight PowerShell-based network diagnostic tool.
 
 &nbsp; - TTL
 
-\- Optional CSV export
-
 
 
 ---
