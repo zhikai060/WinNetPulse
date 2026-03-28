@@ -62,8 +62,9 @@ Input the IP address or domain you want to test.
 Example:
 
 ```
-8.8.8.8
+1.1.1.1
 google.com
+github.com
 ```
 
 ### 4️⃣ Select ping count
@@ -138,7 +139,6 @@ git clone https://github.com/zhikai060/Net-Pulse.git
 
 
 ---
-
 
 
 Made with PowerShell 
