@@ -9,7 +9,7 @@ NetPulse is a lightweight **Windows network diagnostic CLI tool** written in Pow
 
 It provides fast **Ping and Traceroute diagnostics** with real-time statistics and interactive controls.
 
-
+Latest Version:1.2.1
 
 \## Features
 

@@ -1,5 +1,5 @@
 <#
-NetPulse v1.2
+NetPulse v1.2.1
 New:
 - Packet Loss % detection
 - Colorized latency display
@@ -13,7 +13,7 @@ param()
 function Show-Header {
     Clear-Host
     Write-Host "===============================" -ForegroundColor Cyan
-    Write-Host "        NetPulse v1.2" -ForegroundColor Green
+    Write-Host "        NetPulse v1.2.1" -ForegroundColor Green
     Write-Host "===============================" -ForegroundColor Cyan
 }
 
