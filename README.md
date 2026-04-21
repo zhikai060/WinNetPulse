@@ -40,14 +40,14 @@ Latest Version:1.2.1
 
 ### 1️⃣ Download
 
-Download `NetPulse.ps1` from the **Releases** page.
+Download `WinNetPulse.ps1` from the **Releases** page.
 
 ### 2️⃣ Run the script
 
 Open PowerShell in the folder and run:
 
 ```
-.\NetPulse.ps1
+.\WinNetPulse.ps1
 ```
 
 If PowerShell blocks the script, you can allow scripts temporarily:
