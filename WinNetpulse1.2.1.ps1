@@ -1,11 +1,5 @@
 <#
-NetPulse v1.2.1
-New:
-- Packet Loss % detection
-- Colorized latency display
-- Full summary block
-- Ping count presets (10 / 30 / 50 / 100 / 200 / -t infinite)
-- Tracert mode
+WinNetPulse v1.3
 #>
 
 param()
@@ -13,7 +7,7 @@ param()
 function Show-Header {
     Clear-Host
     Write-Host "===============================" -ForegroundColor Cyan
-    Write-Host "        NetPulse v1.2.1" -ForegroundColor Green
+    Write-Host "        WinNetPulse v1.3" -ForegroundColor Green
     Write-Host "===============================" -ForegroundColor Cyan
 }
 
