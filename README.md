@@ -1,11 +1,11 @@
-\# 🚀 NetPulse
+\# 🚀 WinNetPulse
 
 ![Windows](https://img.shields.io/badge/platform-Windows-blue)
 ![PowerShell](https://img.shields.io/badge/language-PowerShell-darkblue)
 ![CLI Tool](https://img.shields.io/badge/type-CLI%20Tool-green)
 
 
-NetPulse is a lightweight **Windows network diagnostic CLI tool** written in PowerShell.
+WinNetPulse is a lightweight **Windows network diagnostic CLI tool** written in PowerShell.
 
 It provides fast **Ping and Traceroute diagnostics** with real-time statistics and interactive controls.
 
@@ -36,7 +36,7 @@ Latest Version:1.2.1
 
 ## Screenshot
 
-![NetPulse Example](Example.png)## Usage
+![WinNetPulse Example](Example.png)## Usage
 
 ### 1️⃣ Download
 
@@ -85,7 +85,7 @@ Infinite mode can be stopped by pressing **Q**.
 
 ### 5️⃣ View results
 
-NetPulse will display:
+WinNetPulse will display:
 
 * Latency (colorized)
 * Packet loss %
@@ -109,7 +109,7 @@ Releases section
 
 Or clone the repository
 
-git clone https://github.com/zhikai060/Net-Pulse.git
+git clone https://github.com/zhikai060/WinNetPulse.git
 
 
 
@@ -117,7 +117,9 @@ git clone https://github.com/zhikai060/Net-Pulse.git
 
 
 
-\- Windows 10 / 11
+\- Windows 10 Version 1607 or newer / 11
+
+\- Windows Server 2016 or newer
 
 \- PowerShell 5.1+
 
