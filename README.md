@@ -36,7 +36,10 @@ Latest Version:1.2.1
 
 ## Screenshot
 
-![WinNetPulse Example](Example.png)## Usage
+![ Example](Example1.png)
+![ Example](Example2.png)
+
+## Usage
 
 ### 1️⃣ Download
 
