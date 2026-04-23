@@ -1,4 +1,4 @@
-﻿\<#
+﻿<#
 WinNetPulse v1.3
 New:
 - Packet Loss % detection
