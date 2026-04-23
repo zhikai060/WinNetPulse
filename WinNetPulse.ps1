@@ -1,4 +1,15 @@
-﻿param()
+﻿\<#
+WinNetPulse v1.3
+New:
+- Packet Loss % detection
+- Colorized latency display
+- Full summary block
+- Ping count presets (10 / 30 / 50 / 100 / 200 / -t infinite)
+- Tracert mode
+- Timestamp for each result line
+#>
+
+param()
 
 function Show-Header {
     Clear-Host
@@ -181,7 +192,7 @@ function Run-PingMode {
 
     $result = Invoke-PingTest $target $count
 
-    Write-Host "`n===== NetPulse Summary =====" -ForegroundColor Cyan
+    Write-Host "`n===== WinNetPulse Summary =====" -ForegroundColor Cyan
 
     Write-Host "Target: $($result.Target)"
 
@@ -192,6 +203,8 @@ function Run-PingMode {
     Write-Host "Max = $($result.Max) ms"
 
     Write-Host "Avg = $($result.Avg) ms"
+
+    Write-Host "Finished at: $(Get-TimeStamp)"
 
     Write-Host "=============================" -ForegroundColor Cyan
 }
