@@ -1,12 +1,9 @@
-﻿<#
-#>
-
-param()
+﻿param()
 
 function Show-Header {
     Clear-Host
     Write-Host "===============================" -ForegroundColor Cyan
-    Write-Host "        WinNetPulse v1.2.1" -ForegroundColor Green
+    Write-Host "        WinNetPulse v1.3" -ForegroundColor Green
     Write-Host "===============================" -ForegroundColor Cyan
 }
 
@@ -59,6 +56,10 @@ function Write-ColoredLatency($time, $text) {
     }
 }
 
+function Get-TimeStamp {
+    return (Get-Date).ToString("yyyy/MM/dd HH:mm:ss.ff")
+}
+
 function Invoke-PingTest($target, $count) {
 
     $min = [int]::MaxValue
@@ -81,6 +82,7 @@ function Invoke-PingTest($target, $count) {
             $sent++
 
             $reply = Test-Connection -ComputerName $target -Count 1 -ErrorAction SilentlyContinue
+            $ts = Get-TimeStamp
 
             if ($reply) {
 
@@ -93,13 +95,13 @@ function Invoke-PingTest($target, $count) {
 
                 $sum += $time
 
-                $text = "[$sent] ${time}ms TTL=$ttl"
+                $text = "[$sent] ${time}ms TTL=$ttl [$ts]"
 
                 Write-ColoredLatency $time $text
             }
             else {
 
-                Write-Host "[$sent] Request timed out." -ForegroundColor Red
+                Write-Host "[$sent] Request timed out. [$ts]" -ForegroundColor Red
             }
 
             Start-Sleep -Seconds 1
@@ -112,6 +114,7 @@ function Invoke-PingTest($target, $count) {
             $sent++
 
             $reply = Test-Connection -ComputerName $target -Count 1 -ErrorAction SilentlyContinue
+            $ts = Get-TimeStamp
 
             if ($reply) {
 
@@ -124,13 +127,13 @@ function Invoke-PingTest($target, $count) {
 
                 $sum += $time
 
-                $text = "[$i/$count] ${time}ms TTL=$ttl"
+                $text = "[$i/$count] ${time}ms TTL=$ttl [$ts]"
 
                 Write-ColoredLatency $time $text
             }
             else {
 
-                Write-Host "[$i/$count] Request timed out." -ForegroundColor Red
+                Write-Host "[$i/$count] Request timed out. [$ts]" -ForegroundColor Red
             }
 
             Start-Sleep -Seconds 1
@@ -178,7 +181,7 @@ function Run-PingMode {
 
     $result = Invoke-PingTest $target $count
 
-    Write-Host "`n===== WinNetPulse Summary =====" -ForegroundColor Cyan
+    Write-Host "`n===== NetPulse Summary =====" -ForegroundColor Cyan
 
     Write-Host "Target: $($result.Target)"
 

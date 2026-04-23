@@ -9,7 +9,7 @@ WinNetPulse is a lightweight **Windows network diagnostic CLI tool** written in 
 
 It provides fast **Ping and Traceroute diagnostics** with real-time statistics and interactive controls.
 
-Latest Version:1.2.1
+Latest Version:1.3
 
 \## Features
 
@@ -24,6 +24,8 @@ Latest Version:1.2.1
 \- Infinite mode supports press Q to stop
 
 \- Real-time statistics
+
+\- Timestamp for each result line
 
 &nbsp; - Min latency
 
