@@ -9,17 +9,19 @@ WinNetPulse is a lightweight **Windows network diagnostic CLI tool** written in 
 
 It provides fast **Ping and Traceroute diagnostics** with real-time statistics and interactive controls.
 
-Latest Version:1.3
+Latest Version: 1.3.1
 
-\## Features
+##Demo
 
 ![ Demo](Demo.gif)
+
+## Features
 
 \- Interactive IP  Domain input
 
 \- Ping or Tracert mode
 
-\- Ping count selection (10  30  50  100  200  Infinite)
+\- Ping count selection (10 / 30 / 50 / 100 / 200 / Infinite)
 
 \- Infinite mode supports press Q to stop
 
@@ -55,6 +57,12 @@ Open PowerShell in the folder and run:
 .\WinNetPulse.ps1
 ```
 
+To disable screen clearing at startup, use:
+
+```
+.\WinNetPulse.ps1 -NoClear
+```
+This prevents `Clear-Host` from running, allowing you to keep previous output (useful for logging or debugging).
 If PowerShell blocks the script, you can allow scripts temporarily:
 
 ```
@@ -98,25 +106,14 @@ WinNetPulse will display:
 * TTL
 ---
 
-
-
 \## Installation
 
+Download the latest release from the **Releases** section  
+or clone the repository:
 
-
-Download the latest release from
-
-
-
-Releases section
-
-
-
-Or clone the repository
-
+```
 git clone https://github.com/zhikai060/WinNetPulse.git
-
-
+```
 
 \## Requirements
 
@@ -136,14 +133,13 @@ git clone https://github.com/zhikai060/WinNetPulse.git
 
 
 
-\- Packet loss %
+\- CLI parameter support (non-interactive mode)
 
 \- Colorized latency display
 
-\- Multi-target comparison mode
+\- Optional no-clear / interactive modes
 
 \- Parameter-based CLI execution
-
 
 
 ---

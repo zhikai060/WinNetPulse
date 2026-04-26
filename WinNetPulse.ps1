@@ -1,5 +1,5 @@
 ﻿<#
-WinNetPulse v1.3
+WinNetPulse v1.3.1
 New:
 - Packet Loss % detection
 - Colorized latency display
@@ -7,14 +7,19 @@ New:
 - Ping count presets (10 / 30 / 50 / 100 / 200 / -t infinite)
 - Tracert mode
 - Timestamp for each result line
+- Add "NoClear" parameter
 #>
 
-param()
+param(
+    [switch]$NoClear
+)
 
-function Show-Header {
+if (-not $NoClear) {
     Clear-Host
+}
+function Show-Header {
     Write-Host "===============================" -ForegroundColor Cyan
-    Write-Host "        WinNetPulse v1.3" -ForegroundColor Green
+    Write-Host "        WinNetPulse v1.3.1" -ForegroundColor Green
     Write-Host "===============================" -ForegroundColor Cyan
 }
 
