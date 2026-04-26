@@ -63,6 +63,7 @@ To disable screen clearing at startup, use:
 .\WinNetPulse.ps1 -NoClear
 ```
 This prevents `Clear-Host` from running, allowing you to keep previous output (useful for logging or debugging).
+
 If PowerShell blocks the script, you can allow scripts temporarily:
 
 ```
