@@ -11,10 +11,6 @@ It provides fast **Ping and Traceroute diagnostics** with real-time statistics a
 
 Latest Version: 1.3.1
 
-##Demo
-
-![ Demo](Demo.gif)
-
 ## Features
 
 \- Interactive IP  Domain input
