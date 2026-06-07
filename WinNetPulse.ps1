@@ -1,13 +1,7 @@
 ﻿<#
-WinNetPulse v1.3.1
+WinNetPulse v1.3.2
 New:
-- Packet Loss % detection
-- Colorized latency display
-- Full summary block
-- Ping count presets (10 / 30 / 50 / 100 / 200 / -t infinite)
-- Tracert mode
-- Timestamp for each result line
-- Add "NoClear" parameter
+Magenta color when packet loss
 #>
 
 param(
@@ -19,7 +13,7 @@ if (-not $NoClear) {
 }
 function Show-Header {
     Write-Host "===============================" -ForegroundColor Cyan
-    Write-Host "        WinNetPulse v1.3.1" -ForegroundColor Green
+    Write-Host "        WinNetPulse v1.3.2" -ForegroundColor Green
     Write-Host "===============================" -ForegroundColor Cyan
 }
 
@@ -117,7 +111,7 @@ function Invoke-PingTest($target, $count) {
             }
             else {
 
-                Write-Host "[$sent] Request timed out. [$ts]" -ForegroundColor Red
+                Write-Host "[$sent] Request timed out. [$ts]" -ForegroundColor Magenta
             }
 
             Start-Sleep -Seconds 1
@@ -149,7 +143,7 @@ function Invoke-PingTest($target, $count) {
             }
             else {
 
-                Write-Host "[$i/$count] Request timed out. [$ts]" -ForegroundColor Red
+                Write-Host "[$i/$count] Request timed out. [$ts]" -ForegroundColor Magenta
             }
 
             Start-Sleep -Seconds 1
