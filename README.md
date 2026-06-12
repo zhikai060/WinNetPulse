@@ -5,7 +5,7 @@
 ![CLI Tool](https://img.shields.io/badge/type-CLI%20Tool-green)
 
 
-WinNetPulse is a lightweight **Windows network diagnostic CLI tool** written in PowerShell.
+WinNetPulse is a lightweight **Windows network diagnostic CLI tool** written in 100% PowerShell.
 
 It provides fast **Ping and Traceroute diagnostics** with real-time statistics and interactive controls.
 
