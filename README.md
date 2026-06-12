@@ -9,7 +9,7 @@ WinNetPulse is a lightweight **Windows network diagnostic CLI tool** written in 
 
 It provides fast **Ping and Traceroute diagnostics** with real-time statistics and interactive controls.
 
-Latest Version: 1.3.1
+## Latest Version: 1.3.2
 
 ## Features
 
@@ -65,6 +65,8 @@ If PowerShell blocks the script, you can allow scripts temporarily:
 ```
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
+
+If you know what this is doing, and have also set up a bypass for .ps1 scripts, you can just Right cilck->Run with Powershell
 
 ### 3️⃣ Enter target
 
